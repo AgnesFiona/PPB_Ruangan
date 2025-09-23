@@ -1,0 +1,91 @@
+import java.util.ArrayList
+
+data class Meja(
+    val panjang: Int,
+    val lebar: Int,
+    val tinggi: Int,
+    val kapasitas: Int
+)
+
+data class Kursi(
+    val panjang: Int,
+    val lebar: Int,
+    val tinggi: Int,
+    val tipe: String
+)
+
+class Ruang(
+    val namaRuang: String,
+    val panjang: Int,
+    val lebar: Int,
+    val tinggi: Int,
+    val viewer: Int,
+    val ac: Int
+) {
+    val daftarMeja: ArrayList<Meja> = ArrayList()
+    val daftarKursi: ArrayList<Kursi> = ArrayList()
+
+    fun tambahMeja(meja: Meja) {
+        daftarMeja.add(meja)
+    }
+
+    fun tambahKursi(kursi: Kursi) {
+        daftarKursi.add(kursi)
+    }
+
+    fun tampilkanDetailRuang() {
+        println("=== Detail Ruang: $namaRuang ===")
+        println("Ukuran (P x L x T): ${panjang} x ${lebar} x ${tinggi} cm")
+        println("Jumlah Viewer: $viewer")
+        println("Jumlah AC: $ac")
+        println("-------------------------------------")
+    }
+
+    fun tampilkanDaftarMeja() {
+        println("Daftar Meja (${daftarMeja.size} unit):")
+        if (daftarMeja.isEmpty()) {
+            println("  - Tidak ada meja.")
+        } else {
+            daftarMeja.forEachIndexed { index, meja ->
+                println("  ${index + 1}. Meja - Kapasitas: ${meja.kapasitas} orang")
+            }
+        }
+    }
+
+    fun tampilkanDaftarKursi() {
+        println("Daftar Kursi (${daftarKursi.size} unit):")
+        if (daftarKursi.isEmpty()) {
+            println("  - Tidak ada kursi.")
+        } else {
+            daftarKursi.forEachIndexed { index, kursi ->
+                println("  ${index + 1}. Kursi - Tipe: ${kursi.tipe}")
+            }
+        }
+        println("=====================================\n")
+    }
+}
+
+fun main() {
+    // Mendefinisikan satu objek Ruang secara langsung
+    val ruangKelas = Ruang(
+        namaRuang = "Ruang Kelas 101",
+        panjang = 800,
+        lebar = 600,
+        tinggi = 300,
+        viewer = 1,
+        ac = 2
+    )
+
+    // Menambahkan Meja dan Kursi ke dalam objek Ruang
+    val mejaSiswa = Meja(panjang = 100, lebar = 50, tinggi = 75, kapasitas = 2)
+    val kursiSiswa = Kursi(panjang = 40, lebar = 40, tinggi = 90, tipe = "siswa")
+
+    repeat(20) { ruangKelas.tambahMeja(mejaSiswa) }
+    repeat(40) { ruangKelas.tambahKursi(kursiSiswa) }
+
+    // Menampilkan daftar Meja dan Kursi
+    ruangKelas.tampilkanDetailRuang()
+    ruangKelas.tampilkanDaftarMeja()
+    println()
+    ruangKelas.tampilkanDaftarKursi()
+}
